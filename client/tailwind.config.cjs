@@ -1,7 +1,7 @@
-module.exports = {
-  purge: ["./src//*.{js,jsx,ts,tsx}"],
+export default {
+  purge: ["./src/**/*.{js,jsx,ts,tsx}"],
   mode: "jit",
-  darkMode: false, // or 'media' or 'class'
+  darkMode: false,
   theme: {
     fontFamily: {
       display: ["Open Sans", "sans-serif"],
