@@ -1,33 +1,35 @@
 // app.js
+require("dotenv").config();
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors'); 
 const config = require('./utils/config');
 const weatherRoutes = require('./routes/weatherRoutes');
 const insuranceRoutes = require('./routes/insuranceRoutes');
+const policyRoutes = require('./routes/policyRoutes'); // New policy route
 
 const app = express();
+
+app.use(cors({
+  origin: 'http://localhost:5173'
+}));
+
+// Middleware
 app.use(express.json());
+
+// MongoDB Atlas connection
+mongoose.connect(
+  process.env.MONGODB_URI,
+)
+.then(() => console.log("Connected to MongoDB Atlas"))
+.catch((error) => console.log("MongoDB connection error:", error));
 
 // Routes
 app.use('/api/weather', weatherRoutes);
 app.use('/api/insurance', insuranceRoutes);
+app.use('/api/policies', policyRoutes);  // Route for handling policy creation
 
-// Error handling for unhandled requests
-app.use((req, res, next) => {
-  res.status(404).json({ error: 'Route not found' });
-});
-
-// Global error handler
-app.use((err, req, res, next) => {
-  console.error('Error:', err.stack);
-  res.status(500).json({ error: 'Internal server error' });
-});
-
-// Connect to MongoDB
-mongoose.connect(config.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('MongoDB connection error:', err));
-
-app.listen(config.PORT, () => {
-  console.log(`Server running on port ${config.PORT}`);
+const PORT = config.port || 5132;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
