@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const View = () => {
   const [policyId, setPolicyId] = useState("");
@@ -31,9 +32,11 @@ const View = () => {
     >
       <header className="fixed top-0 left-0 w-full flex justify-between items-center p-4 bg-green-900">
         <h1 className="text-3xl font-bold text-white">Pinacle Hub</h1>
-        <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-          CLAIM INSURANCE
-        </button>
+        <Link to="/insurence">
+          <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            CLAIM INSURANCE
+          </button>
+        </Link>
       </header>
       <div className="text-center mb-5">
         <h2 className="text-2xl mb-4 text-black">View your Policies</h2>
@@ -59,15 +62,17 @@ const View = () => {
             <thead>
               <tr className="border-b">
                 <th className="px-4 py-2">User Address</th>
+                <th className="px-4 py-2">Insurance Amount</th>
                 <th className="px-4 py-2">Area</th>
                 <th className="px-4 py-2">Crop</th>
                 <th className="px-4 py-2">Type</th>
-                <th className="px-4 py-2">Valid Till</th>
+                <th className="px-4 py-2">Created On</th>
               </tr>
             </thead>
             <tbody>
               <tr className="border-b">
                 <td className="px-4 py-2">{policy.location || "N/A"}</td>
+                <td className="px-4 py-2">{policy.premium || "N/A"}</td>
                 <td className="px-4 py-2">{policy.area}</td>
                 <td className="px-4 py-2">{policy.cropType || "N/A"}</td>
                 <td className="px-4 py-2">{policy.policyFor || "N/A"}</td>

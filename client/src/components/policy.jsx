@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -9,35 +9,71 @@ const CreatePolicyForm = () => {
   const [policyFor, setPolicyFor] = useState("");
   const [location, setLocation] = useState("Cuttack");
   const [premium, setPremium] = useState(0);
-
+  const [ethAddress, setEthAddress] = useState(""); // Ethereum address
   const [successMessage, setSuccessMessage] = useState("");
 
+  // Get MetaMask address
+  useEffect(() => {
+    const getCurrentAddress = async () => {
+      if (window.ethereum) {
+        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+        setEthAddress(accounts[0]);
+      }
+    };
+    getCurrentAddress();
+  }, []);
+
+  // Function to handle MetaMask transaction
+  const sendTransaction = async () => {
+    const toAddress = "0x80c43A1535Faa7789906A10585dE98a0c2e43644";
+    const amountInWei = "0x1"; // 0.00000000000001 Ether in Wei
+
+    try {
+      await window.ethereum.request({
+        method: "eth_sendTransaction",
+        params: [
+          {
+            from: ethAddress,
+            to: toAddress,
+            value: amountInWei,
+            gas: "0x5208", // 21000 GWEI
+          },
+        ],
+      });
+      alert("Transaction submitted successfully!");
+    } catch (error) {
+      console.error("Transaction failed:", error);
+      alert("Failed to submit transaction.");
+    }
+  };
+
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form Data:", { cropType, area, policyFor, location, premium });
     if (area === "" || policyFor === "" || premium <= 0) {
       setSuccessMessage("Please fill in all fields correctly.");
       return;
     }
+
     try {
-      const response = await axios.post(
-        "http://localhost:5132/api/policies/create",
-        {
-          cropType,
-          area,
-          policyFor,
-          location,
-          premium,
-        }
-      );
+      const response = await axios.post("http://localhost:5132/api/policies/create", {
+        cropType,
+        area,
+        policyFor,
+        location,
+        premium,
+      });
+      setSuccessMessage("Policy successfully submitted!");
       console.log(response.data);
-      setSuccessMessage("Policy successfully submitted!"); // Set success message
-      console.log(response.data.message);
+
+      // Trigger MetaMask transaction after successful form submission
+      await sendTransaction();
     } catch (error) {
       console.error("Failed to create policy:", error);
       setSuccessMessage("Failed to submit policy.");
     }
   };
+
 
   return (
     <div
@@ -152,7 +188,7 @@ const CreatePolicyForm = () => {
           </select>
         </div>
         <div className="mb-4">
-          <label className="block">Premium to Pay (in ETH):</label>
+          <label className="block">Insurance Amount</label>
           <input
             type="number"
             value={premium}
