@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const view = () => {
+const View = () => {
   const [policyId, setPolicyId] = useState('');
   const [policy, setPolicy] = useState(null);
 
@@ -17,14 +17,14 @@ const view = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-cover bg-center text-white" 
-         style={{ backgroundImage: 'url("https://tse2.mm.bing.net/th?id=OIP.RweGm3vyeJkr0-LLrJY-7AHaE8&pid=Api&P=0&h=180")' }} // Use your actual image path
+         style={{ backgroundImage: 'url("https://tse1.mm.bing.net/th?id=OIP.WjOUxz1BGFCzb0cqi23eAAHaEo&pid=Api&P=0&h=180")' }}
     >
-      <header className="flex justify-between w-4/5 mb-5">
-        <h1 className="text-3xl font-bold">STEROIDS</h1>
-        <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-          CLAIM INSURANCE
-        </button>
-      </header>
+      <header className="fixed top-0 left-0 w-full flex justify-between items-center p-4 bg-green-900">
+  <h1 className="text-3xl font-bold text-white">Pinacle Hub</h1>
+  <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+    CLAIM INSURANCE
+  </button>
+</header>
 
       <div className="text-center mb-5">
         <h2 className="text-2xl mb-4">View your Policies</h2>
@@ -41,8 +41,8 @@ const view = () => {
       </div>
 
       {policy && (
-        <div className="mt-5 bg- bg-opacity-80 p-5 rounded-lg shadow-lg">
-          <table className="min-w-full">
+        <div className="mt-5 bg-white bg-opacity-80 p-5 rounded-lg shadow-lg">
+          <table className="min-w-full text-black">
             <thead>
               <tr className="border-b">
                 <th className="px-4 py-2">User Address</th>
@@ -68,4 +68,4 @@ const view = () => {
   );
 };
 
-export default view;
+export default View;

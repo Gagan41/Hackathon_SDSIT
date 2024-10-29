@@ -27,7 +27,7 @@ const CreatePolicyForm = () => {
          }}
     >
       <div className="flex justify-between items-center p-4 bg-green-900 bg-opacity-70">
-        <h1 className="text-white text-2xl">STEROIDS</h1>
+        <h1 className="text-white text-2xl">Pinacle Hub</h1>
         <div className="flex gap-2">
           <button className="bg-white text-green-900 px-4 py-2 rounded">
             View Policies
