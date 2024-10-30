@@ -74,19 +74,18 @@ const CreatePolicyForm = () => {
     }
   };
 
-
   return (
     <div
-      className="font-sans min-h-screen bg-cover bg-center"
+      className="min-h-screen bg-cover bg-center text-white font-sans"
       style={{
-        backgroundImage: 'url("https://wallpapercave.com/wp/wp1886383.jpg")', // Replace with your image path
+        backgroundImage: 'url("https://wallpaperaccess.com/full/1598235.jpg")', // Replace with your image path
       }}
     >
-      <div className="flex justify-between items-center p-4 bg-green-900 bg-opacity-70">
+      <header className="bg-green-900 p-4 flex justify-between items-center">
         <h1 className="text-white text-2xl">Pinacle Hub</h1>
         <div className="flex gap-2">
           <Link to="/view">
-            <button className="bg-white text-green-900 px-4 py-2 rounded">
+            <button className="bg-white text-black px-4 py-2 rounded">
               View Policies
             </button>
           </Link>
@@ -96,124 +95,129 @@ const CreatePolicyForm = () => {
             </button>
           </Link>
         </div>
-      </div>
-      <form
-        className="bg-transparent bg-opacity-80 p-10 rounded-lg shadow-lg mx-4 mt-8"
-        onSubmit={handleSubmit}
-      >
-        <h2 className="text-2xl mb-4">Create New Policy</h2>
-        <div className="mb-4">
-          <label className="block">Crop Type</label>
-          <select
-            value={cropType}
-            onChange={(e) => setCropType(e.target.value)}
-            placeholder="Select below"
-            className="w-full p-2 border border-gray-300 rounded"
-          >
-            <option value="Rice">Rice</option>
-            <option value="Wheat">Wheat</option>
-            <option value="Maize">Maize</option>
-            <option value="Barley">Barley</option>
-            <option value="Cotton">Cotton</option>
-            <option value="Soybean">Soybean</option>
-            <option value="Groundnut">Groundnut</option>
-            <option value="Sugarcane">Sugarcane</option>
-            <option value="Potato">Potato</option>
-            <option value="Onion">Onion</option>
-            <option value="Tomato">Tomato</option>
-            <option value="Chickpeas">Chickpeas</option>
-            <option value="Sunflower">Sunflower</option>
-            <option value="Tobacco">Tobacco</option>
-            <option value="Jute">Jute</option>
-          </select>
-        </div>
-        <div className="mb-4">
-          <label className="block">Area (in Acres):</label>
-          <input
-            type="number"
-            value={area}
-            onChange={(e) => setArea(e.target.value)}
-            placeholder="in Acres"
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block">Policy For:</label>
-          <div className="flex gap-4">
-            <label>
-              <input
-                type="radio"
-                name="policyFor"
-                value="Flood"
-                checked={policyFor === "Flood"}
-                onChange={(e) => setPolicyFor(e.target.value)}
-              />
-              Flood
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="policyFor"
-                value="Drought"
-                checked={policyFor === "Drought"}
-                onChange={(e) => setPolicyFor(e.target.value)}
-              />
-              Drought
-            </label>
+      </header>
+     
+      <div className="w-full max-w-4xl p-8 mx-auto mb-10">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-transparent text-black p-8 rounded-lg shadow-lg backdrop-blur-md"
+        >
+          <h2 className="text-2xl mb-4">Create New Policy</h2>
+          <p className="mb-4">Connected Wallet: <strong>{ethAddress}</strong></p>
+          <div className="mb-4">
+            <label className="block">Crop Type</label>
+            <select
+              value={cropType}
+              onChange={(e) => setCropType(e.target.value)}
+              className="w-full p-2 border border-gray-400 bg-white/30 backdrop-blur rounded text-black"
+            >
+              <option value="Rice">Rice</option>
+              <option value="Wheat">Wheat</option>
+              <option value="Maize">Maize</option>
+              <option value="Barley">Barley</option>
+              <option value="Cotton">Cotton</option>
+              <option value="Soybean">Soybean</option>
+              <option value="Groundnut">Groundnut</option>
+              <option value="Sugarcane">Sugarcane</option>
+              <option value="Potato">Potato</option>
+              <option value="Onion">Onion</option>
+              <option value="Tomato">Tomato</option>
+              <option value="Chickpeas">Chickpeas</option>
+              <option value="Sunflower">Sunflower</option>
+              <option value="Tobacco">Tobacco</option>
+              <option value="Jute">Jute</option>
+            </select>
           </div>
-        </div>
-        <div className="mb-4">
-          <label className="block">Location:</label>
-          <select
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            placeholder="Select below"
-            className="w-full p-2 border border-gray-300 rounded"
+          <div className="mb-4">
+            <label className="block">Area (in Acres):</label>
+            <input
+              type="number"
+              value={area}
+              onChange={(e) => setArea(e.target.value)}
+              placeholder="in Acres"
+              className="w-full p-2 border border-gray-400 bg-white/30 backdrop-blur rounded text-black"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block">Policy For:</label>
+            <div className="flex gap-4">
+              <label>
+                <input
+                  type="radio"
+                  name="policyFor"
+                  value="Flood"
+                  checked={policyFor === "Flood"}
+                  onChange={(e) => setPolicyFor(e.target.value)}
+                  className="mr-2"
+                />
+                Flood
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="policyFor"
+                  value="Drought"
+                  checked={policyFor === "Drought"}
+                  onChange={(e) => setPolicyFor(e.target.value)}
+                  className="mr-2"
+                />
+                Drought
+              </label>
+            </div>
+          </div>
+          <div className="mb-4">
+            <label className="block">Location:</label>
+            <select
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              className="w-full p-2 border border-gray-400 bg-white/30 backdrop-blur rounded text-black"
+            >
+              <option value="Cuttack">Cuttack</option>
+              <option value="Bhubaneswar">Bhubaneswar</option>
+              <option value="Puri">Puri</option>
+              <option value="Kolkata">Kolkata</option>
+              <option value="Delhi">Delhi</option>
+              <option value="Mumbai">Mumbai</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Hyderabad">Hyderabad</option>
+              <option value="Ahmedabad">Ahmedabad</option>
+              <option value="Jaipur">Jaipur</option>
+              <option value="Lucknow">Lucknow</option>
+              <option value="Varanasi">Varanasi</option>
+              <option value="Indore">Indore</option>
+              <option value="Surat">Surat</option>
+              <option value="Nagpur">Nagpur</option>
+            </select>
+          </div>
+          <div className="mb-4">
+            <label className="block">Insurance Amount</label>
+            <input
+              type="number"
+              value={premium}
+              onChange={(e) => setPremium(e.target.value)}
+              className="w-full p-2 border border-gray-400 bg-white/30 backdrop-blur rounded text-black"
+            />
+          </div>
+           {successMessage && (
+          <p
+            className={`mt-4 p-4 rounded ${
+              successMessage.includes("successfully")
+                ? "bg-green-100 text-green-800 border border-green-400"
+                : "bg-red-100 text-red-800 border border-red-400"
+            }`}
           >
-            <option value="Cuttack">Cuttack</option>
-            <option value="Bhubaneswar">Bhubaneswar</option>
-            <option value="Puri">Puri</option>
-            <option value="Kolkata">Kolkata</option>
-            <option value="Delhi">Delhi</option>
-            <option value="Mumbai">Mumbai</option>
-            <option value="Chennai">Chennai</option>
-            <option value="Hyderabad">Hyderabad</option>
-            <option value="Ahmedabad">Ahmedabad</option>
-            <option value="Jaipur">Jaipur</option>
-            <option value="Lucknow">Lucknow</option>
-            <option value="Varanasi">Varanasi</option>
-            <option value="Indore">Indore</option>
-            <option value="Surat">Surat</option>
-            <option value="Nagpur">Nagpur</option>
-          </select>
-        </div>
-        <div className="mb-4">
-          <label className="block">Insurance Amount</label>
-          <input
-            type="number"
-            value={premium}
-            onChange={(e) => setPremium(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded"
-          />
-        </div>
-        <button
-          type="submit"
-          className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition"
-        >
-          Submit Policy
-        </button>
-      </form>
-      {successMessage && (
-        <p
-          className={`mt-4 p-4 rounded ${
-            successMessage.includes("successfully")
-              ? "bg-green-100 text-green-800 border border-green-400"
-              : "bg-red-100 text-red-800 border border-red-400"
-          }`}
-        >
-          {successMessage}
-        </p>
-      )}
+            {successMessage}
+          </p>
+        )}
+          <button
+            type="submit"
+            className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 transition"
+          >
+            Submit Policy
+          </button>
+        </form>
+        
+      </div>
     </div>
   );
 };
