@@ -1,27 +1,21 @@
-// scripts/deploy.js
+const { ethers } = require("hardhat");
+
 async function main() {
-  // Load the InsurancePolicy contract and deploy it
-  const InsurancePolicy = await ethers.getContractFactory("InsurancePolicy");
-  console.log("Deploying the InsurancePolicy contract...");
+  // Get the contract factory
+  const PolicyContract = await ethers.getContractFactory("PolicyContract");
 
-  const insurancePolicy = await InsurancePolicy.deploy();
-  console.log("Deployment response:", insurancePolicy); // Log the response
+  // Deploy the contract with a higher gas limit
+  const gasLimit = 94232; // Set this to the minimum needed from the error
+  const policyContract = await PolicyContract.deploy({ gasLimit });
+  console.log(policyContract);
 
-  // Check if deployment was successful
-  if (!insurancePolicy || !insurancePolicy.address) {
-    console.error("Deployment failed: insurancePolicy object is not valid.");
-    return;
-  }
-
-  console.log("Waiting for deployment...");
-  await insurancePolicy.deployed();
-
-  console.log("InsurancePolicy deployed to:", insurancePolicy.address);
+  // Output the contract address
+  console.log("PolicyContract deployed to:", policyContract.address);
 }
 
 main()
   .then(() => process.exit(0))
   .catch((error) => {
-    console.error("Error deploying contract:", error);
+    console.error("Error during deployment:", error);
     process.exit(1);
   });
